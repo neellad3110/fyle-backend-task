@@ -6,7 +6,7 @@ Flask==2.0.1
 Flask-Alembic==2.0.1
 Flask-Migrate==3.1.0
 Flask-SQLAlchemy==2.5.1
-gevent==24.2.1
+gevent==23.9.1
 greenlet==3.0.3
 gunicorn==20.1.0
 importlib-resources==5.2.2
@@ -19,10 +19,10 @@ marshmallow==3.13.0
 marshmallow-enum==1.5.1
 marshmallow-sqlalchemy==0.26.1
 packaging==21.0
-pluggy==1.0.0
-py==1.10.0
+pluggy==1.5.0
+py==1.11.0
 pyparsing==2.4.7
-pytest==6.2.5
+pytest==8.2.0
 pytest-cov==2.12.1
 SQLAlchemy==1.4.23
 toml==0.10.2

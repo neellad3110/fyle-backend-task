@@ -19,6 +19,11 @@ def assert_valid(cond, msg='BAD_REQUEST'):
     if cond is False:
         base_assert(400, msg)
 
+# to avoid alredy processed requests.
+def assert_conflict(cond, msg='CONFLICT'):
+    if cond is False:
+        base_assert(409, msg)
+
 
 def assert_found(_obj, msg='NOT_FOUND'):
     if _obj is None:

@@ -11,3 +11,12 @@ class Student(db.Model):
 
     def __repr__(self):
         return '<Student %r>' % self.id
+
+    @classmethod                    # fetching student records base on requested id 
+    def filter(cls, *criterion):
+        db_query = db.session.query(cls)
+        return db_query.filter(*criterion)
+
+    @classmethod        # validating student id
+    def get_by_id(cls, _id):
+        return cls.filter(cls.id == _id).first()

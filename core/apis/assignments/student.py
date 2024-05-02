@@ -2,7 +2,8 @@ from flask import Blueprint
 from core import db
 from core.apis import decorators
 from core.apis.responses import APIResponse
-from core.models.assignments import Assignment
+from core.models.assignments import Assignment,Student
+from core.libs import assertions
 
 from .schema import AssignmentSchema, AssignmentSubmitSchema
 student_assignments_resources = Blueprint('student_assignments_resources', __name__)
@@ -12,6 +13,8 @@ student_assignments_resources = Blueprint('student_assignments_resources', __nam
 @decorators.authenticate_principal
 def list_assignments(p):
     """Returns list of assignments"""
+    # checking requested student existence
+    assertions.assert_found(Student.get_by_id(p.student_id), 'No student with this id was found')
     students_assignments = Assignment.get_assignments_by_student(p.student_id)
     students_assignments_dump = AssignmentSchema().dump(students_assignments, many=True)
     return APIResponse.respond(data=students_assignments_dump)
@@ -23,8 +26,8 @@ def list_assignments(p):
 def upsert_assignment(p, incoming_payload):
     """Create or Edit an assignment"""
     assignment = AssignmentSchema().load(incoming_payload)
-    assignment.student_id = p.student_id
-
+    assignment.student_id=p.student_id
+    assertions.assert_found(Student.get_by_id(p.student_id),"No student with this id was found")
     upserted_assignment = Assignment.upsert(assignment)
     db.session.commit()
     upserted_assignment_dump = AssignmentSchema().dump(upserted_assignment)
