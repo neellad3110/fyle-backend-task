@@ -1,0 +1,7 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: bash run.sh
+    ports:
+      - "7755:7755"
